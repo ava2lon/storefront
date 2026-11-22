@@ -1,12 +1,20 @@
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
-import puterLocalhost from '../../dev/puter-localhost.mjs';
+
+const root = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
-  plugins: [puterLocalhost('pos')],
   base: './',
   build: {
     target: 'es2022',
     cssTarget: 'safari15',
+    rollupOptions: {
+      input: {
+        pos: resolve(root, 'index.html'),
+        shop: resolve(root, 'shop.html'),
+      },
+    },
   },
   server: {
     port: 5174,
